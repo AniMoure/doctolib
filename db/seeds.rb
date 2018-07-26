@@ -11,9 +11,14 @@ gem 'faker'
 	doc = Doctor.create(
 		first_name: Faker::Name.first_name,
 		last_name: Faker::Name.last_name,
-		specialty: Faker::FunnyName.two_word_name,
 		postal_code: Faker::Code.sin
 	)
+	spec = Specialty.create(
+		name: Faker::HeyArnold.character
+	)
+
+	doc.specialties << spec
+
 	pat = Patient.create(
 		first_name: Faker::Name.first_name,
 		last_name: Faker::Name.last_name
@@ -22,5 +27,11 @@ gem 'faker'
 		date: Faker::Date.forward(30),
     doctor_id: rand((Doctor.first.id)..(Doctor.last.id)),
     patient_id: rand((Patient.first.id)..(Patient.last.id))
+	)
+	city = City.create(
+		city_name: Faker::WorldCup.city,
+		doctor_id: rand((Doctor.first.id)..(Doctor.last.id)),
+    patient_id: rand((Patient.first.id)..(Patient.last.id)),
+    appointment_id: rand((Appointment.first.id)..(Appointment.last.id))
 	)
 end

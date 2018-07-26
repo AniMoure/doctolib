@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_26_140026) do
+ActiveRecord::Schema.define(version: 2018_07_26_212204) do
 
   create_table "appointments", force: :cascade do |t|
     t.datetime "date"
@@ -22,18 +22,40 @@ ActiveRecord::Schema.define(version: 2018_07_26_140026) do
     t.index ["patient_id"], name: "index_appointments_on_patient_id"
   end
 
+  create_table "cities", force: :cascade do |t|
+    t.string "city_name"
+    t.integer "doctor_id"
+    t.integer "patient_id"
+    t.integer "appointment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["appointment_id"], name: "index_cities_on_appointment_id"
+    t.index ["doctor_id"], name: "index_cities_on_doctor_id"
+    t.index ["patient_id"], name: "index_cities_on_patient_id"
+  end
+
   create_table "doctors", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
-    t.string "specialty"
     t.integer "postal_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "doctors_specialties", id: false, force: :cascade do |t|
+    t.integer "doctor_id", null: false
+    t.integer "specialty_id", null: false
+  end
+
   create_table "patients", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "specialties", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
